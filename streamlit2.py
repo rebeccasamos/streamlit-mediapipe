@@ -42,7 +42,7 @@ def app_emotion_detection():
             self.model = retrieve_model()
 
         def find_faces(self, image):
-            image2 = image.copy()
+
             image_face, faces = self.face_detector.findFaces(image)
             # loop over all faces and print them on the video + apply prediction
             for face in faces:
@@ -50,7 +50,6 @@ def app_emotion_detection():
                 def img_convert(image):
                     image = cv2.cvtColor(image,cv2.COLOR_GRAY2RGB)
                     return image
-                print(face)
 
             #make prediction
                 def predict(image,shape,reshape):
@@ -62,43 +61,37 @@ def app_emotion_detection():
                 SHAPE = (224,224)
                 RESHAPE = (1,224,224,3)
 
-
-
-
-                xmin = int(face['bbox'][0])
-                ymin = int(face['bbox'][1])
-                deltax = int(face['bbox'][2])
-                deltay = int(face['bbox'][3])
-
-                im2crop = image2
-                im2crop = im2crop[int(ymin - 0.3*deltay):int(ymin + 1.3*deltay),int(xmin - 0.3*deltax):int(xmin + 1.3*deltax)]
-
-                from PIL import Image
-                im = Image.fromarray(im2crop)
-                im.save("your_file.jpeg")
-
-
-                prediction = predict(im2crop,SHAPE,RESHAPE)
+                prediction = predict(image,SHAPE,RESHAPE)
                 print(prediction)
 
+
                 # #draw emotion on images
-                cv2.putText(image2, prediction, (xmin -50, ymin -30), cv2.FONT_HERSHEY_PLAIN,
-                                2, (255, 0, 255), 2)
+               #cv2.putText(image_face, prediction, cv2.FONT_HERSHEY_PLAIN,
+                                #2, (255, 0, 255), 2)
 
 
 
 
-                #draw rectangle arouond face
-                # Start coordinate represents the top left corner of rectangle
-                start_point = (xmin, ymin+deltay)
 
-                # Ending coordinate represents the bottom right corner of rectangle
-                end_point = (xmin+deltax, ymin)
+                            # Write some Text
+
+                # font                   = cv2.FONT_HERSHEY_SIMPLEX
+                # bottomLeftCornerOfText = (10,500)
+                # fontScale              = 1
+                # fontColor              = (255,255,255)
+                # thickness              = 1
+                # lineType               = 2
+
+                # cv2.putText(image_face,str(prediction),
+                #         bottomLeftCornerOfText,
+                #         font,
+                #         fontScale,
+                #         fontColor,
+                #         thickness,
+                #         lineType)
 
 
-                cv2.rectangle(image2, start_point, end_point,(204,255,204), 2)
-
-            return faces, image2
+            return faces, image_face
 
         def recv(self, frame: av.VideoFrame) -> av.VideoFrame:
             image = frame.to_ndarray(format="rgb24")
@@ -128,3 +121,9 @@ app_mode = st.sidebar.selectbox(
 st.subheader(app_mode)
 if app_mode == object_detection_page:
     app_emotion_detection()
+
+
+
+# #draw emotion on images
+                  #cv2.putText(image_face, pred, (bbox[0] + 130, bbox[1] - 30), cv2.FONT_HERSHEY_PLAIN,
+                                #l2, (255, 0, 255), 2)

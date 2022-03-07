@@ -1,4 +1,3 @@
-#Import for streamlit
 import streamlit as st
 import av
 from tensorflow.keras.models import load_model
@@ -21,15 +20,15 @@ RTC_CONFIGURATION = RTCConfiguration(
 )
 
 #Create a dict for classes
-emotion = {0:'anger',1:'contempt',2:'disgust',3:'fear',4:'happiness',
-              5:'neutrality',6:'sadness',7:'surprise'}
+emotion = {0:'neutral',1:'happy',2:'sad',3:'surprise',4:'fear',
+              5:'disgust',6:'anger',7:'contempt'}
 
 
 #download model
 @st.cache(allow_output_mutation=True)
 def retrieve_model():
 
-    model = load_model("/Users/rebeccasamossanchez/code/rebeccasamos/live-streaming-app/emotion-video-tuto/my_checkpoint_pn_30k_model.h5")
+    model = load_model("/Users/rebeccasamossanchez/code/rebeccasamos/live-streaming-app/emotion-video-tuto/my_checkpoint_model_AffectNetVGG16_deep.h5")
     return model
 #Main inelligence of the file, class to launch a webcam, detect faces, then detect emotion and output probability for each emotion
 
