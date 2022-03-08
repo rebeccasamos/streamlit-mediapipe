@@ -9,6 +9,7 @@ av==8.1.0
 tensorflow==2.5.0
 
 #for handling image
+opencv-python 
 opencv-python-headless==4.5.5.62
 opencv-contrib-python-headless==4.5.5.62
 mediapipe==0.8.9.1

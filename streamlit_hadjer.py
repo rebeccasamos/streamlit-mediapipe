@@ -10,6 +10,11 @@ from streamlit_webrtc import (
     webrtc_streamer,
 )
 
+import cv2
+from PIL import Image,ImageEnhance
+import numpy as np
+import os
+
 
 #Import for handling image
 import cv2
@@ -141,14 +146,57 @@ def app_emotion_detection():
 
 ############################ Sidebar + launching #################################################
 
-object_detection_page = "Try our Emotional Live Detector!"
+#object_detection_page = "Try our Emotional Live Detector!"
 
-app_mode = st.sidebar.selectbox(
-    "Choose the app mode",
-    [
-        object_detection_page,
-    ],
-)
-st.subheader(app_mode)
-if app_mode == object_detection_page:
-    app_emotion_detection()
+#app_mode = st.sidebar.selectbox(
+#     "Choose the app mode",
+#     [
+#         object_detection_page,
+#     ],
+# )
+# st.subheader(app_mode)
+# if app_mode == object_detection_page:
+#     app_emotion_detection()
+
+
+
+def main():
+    st.title('Face Detection App')
+    st.text('Build with Streamlit and OpenCV')
+
+
+    activities =['Upload your emotion!',"About", "Live Emotion Detector"]
+    choice = st.sidebar.selectbox('Select Activity',activities)
+
+    if choice=='Upload your emotion!':
+        st.subheader('Emotion Detection')
+
+        image_file=st.file_uploader('Upload Image',type=["jpg","png","jpeg"])
+
+    elif choice == 'About':
+        st.subheader('About')
+
+    elif choice ==  "Live Emotion Detector":
+        app_emotion_detection()
+
+
+if __name__ == '__main__':
+    main()
+
+
+
+#     elif choice ==  "Live Emotion Detector":
+#         object_detection_page = "Live Emotion Detector"
+#         app_mode = st.sidebar.selectbox(
+#             "Live Detection",
+#                 [
+#                     object_detection_page,
+#                 ],
+#             )
+#         st.subheader(app_mode)
+#         if app_mode == object_detection_page:
+#                 app_emotion_detection()
+
+
+# if __name__ == '__main__':
+#     main()
